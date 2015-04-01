@@ -80,6 +80,9 @@ def compute_frequency():
                     items.append(index)
                 index += 1
             words[word] = items
-    print words
+
+
+def apriori(min_supp, min_conf):
+    return {}
 
 
