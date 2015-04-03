@@ -1,4 +1,5 @@
 import sys
+import csv
 import Computation
 
 def main(argv):
@@ -10,6 +11,16 @@ def main(argv):
         csv_filename = argv[0]
         min_supp = float(argv[1])
         min_conf = float(argv[2])
+
+    fields = None
+    data = []
+
+    with open(csv_filename) as csvfile:
+        reader = csv.DictReader(csvfile)
+        fields = reader.fieldnames
+        for row in reader:
+            data.append(row)
+        csvfile.close()
 
     Computation.read_file(csv_filename)
     Computation.categorize()
