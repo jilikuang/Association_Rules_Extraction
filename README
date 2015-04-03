@@ -9,7 +9,16 @@ a) Group members
 b) File list
 
 
-c) Design
+c) How to run:
+
+    python main.py <CSV filepath> <min_supp> <min_conf>
+    where:
+        * CSV filepath: the CSV file
+        * min_supp: the minimum/threshold of support
+        * min_conf: the minimum/threshold of confidence
 
 
-d) Addtional Information
+d) Design
+
+
+e) Addtional Information
