@@ -2,8 +2,8 @@ import csv
 import math
 
 data_rows = []
-cat_data_rows = []
-words = {}
+cat_data_rows_list = []
+words_set = set([])
 col_with_num = 3
 category_num = 5.0
 
@@ -57,32 +57,57 @@ def categorize():
                         level = math.floor((float(word)-col_min)/((col_max - col_min)/category_num))
                     cat_data_row.append(data_rows[0][index] + '_' + str(level))
                 else:
-                    cat_data_rows.append(word)
+                    cat_data_row.append(word)
                 index += 1
-            cat_data_rows.append(cat_data_row)
+            cat_data_rows_list.append(cat_data_row)
 
 
 def compute_word_collection():
-    for row in cat_data_rows:
+    for row in cat_data_rows_list[1:]:
         for word in row:
-            if word not in words:
-                words[word] = []
+            if word not in words_set:
+                words_set.add(word)
 
 
-def compute_frequency():
-    count = len(data_rows)
-    if count > 0:
-        for word in words:
-            items = []
-            index = 0
-            for row in cat_data_rows:
-                if word in row:
-                    items.append(index)
-                index += 1
-            words[word] = items
+def compute_frequency(subset):
+    count = 0
+    for row in cat_data_rows_list[1:]:
+        if subset.issubset(row):
+            count += 1
+    return count
 
 
 def apriori(min_supp, min_conf):
-    return {}
+    high_freq_list = compute_high_freq_list(min_supp)
+    high_conf_list = compute_high_conf_list(high_freq_list, min_conf)
+    return high_conf_list
 
 
+def compute_high_freq_list(min_supp):
+    min_row_num = (len(data_rows)-1)*min_supp
+    high_freq_list = []
+    item_set = set([])
+    for word in words_set:
+        num = compute_frequency(set(word))
+        if num >= min_row_num:
+            item_set.add(word)
+    high_freq_list.append(item_set)
+    high_set_k = item_set
+    while len(high_set_k) > 0:
+        high_set_k_plus_1 = {}
+        for s in high_set_k:
+            for item in item_set and item not in s:
+                new_s = set(s)
+                new_s.add(item)
+                count = compute_frequency(new_s)
+                if count >= min_row_num:
+                    high_set_k_plus_1.add(new_s)
+        high_freq_list.append(high_set_k_plus_1)
+        high_set_k = high_set_k_plus_1
+    print high_freq_list
+    return high_freq_list
+
+
+def compute_high_conf_list(high_freq_list, min_conf):
+    high_conf_list = []
+    return high_conf_list

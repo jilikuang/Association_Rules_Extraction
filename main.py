@@ -1,6 +1,6 @@
 import sys
 import csv
-import Computation
+from Computation import *
 
 def main(argv):
     if argv[0] == 'test':
@@ -22,11 +22,10 @@ def main(argv):
             data.append(row)
         csvfile.close()
 
-    Computation.read_file(csv_filename)
-    Computation.categorize()
-    Computation.compute_word_collection()
-    Computation.compute_frequency()
-    Computation.apriori(min_supp, min_conf)
+    read_file(csv_filename)
+    categorize()
+    compute_word_collection()
+    apriori(min_supp, min_conf)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
