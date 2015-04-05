@@ -8,6 +8,7 @@ col_with_num = 3
 category_num = 5.0
 
 
+# read the excel file into rows
 def read_file(file_name):
     with open(file_name, 'rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
@@ -15,6 +16,7 @@ def read_file(file_name):
             data_rows.append(row)
 
 
+# Since a lot cell contains float number, we need to categorize them and make the numbers more meaningful
 def categorize():
     if len(data_rows) > 0:
         mins = []
@@ -63,6 +65,7 @@ def categorize():
             cat_data_rows_list.append(cat_data_row_set)
 
 
+# compute the word collection
 def compute_word_set():
     for row in cat_data_rows_list[1:]:
         for word in row:
@@ -70,6 +73,7 @@ def compute_word_set():
                 words_set.add(word)
 
 
+# compute the number of times when the subset appears in the rows
 def compute_frequency(subset):
     count = 0
     for row in cat_data_rows_list[1:]:
@@ -78,12 +82,14 @@ def compute_frequency(subset):
     return count
 
 
+# start the apriori algorithm
 def apriori(min_supp, min_conf):
     high_freq_set_list = compute_high_freq_set_list(min_supp)
     high_conf_set_list = compute_high_conf_ass_list(high_freq_set_list, min_conf)
     return high_conf_set_list
 
 
+# compute the frequent item_set list has larger support than min_support
 def compute_high_freq_set_list(min_supp):
     min_row_num = (len(data_rows)-1)*min_supp
     high_freq_set_list = []
@@ -109,6 +115,7 @@ def compute_high_freq_set_list(min_supp):
     return high_freq_set_list
 
 
+# compute the association rules that has higher confidence than min_confidence
 def compute_high_conf_ass_list(high_freq_set_list, min_conf):
     high_conf_ass_list = []
     for item_set in high_freq_set_list:
@@ -126,6 +133,7 @@ def compute_association_list(item_set):
     return association_list
 
 
+# compute all the possible association rules of an item_set
 def compute_association_list_helper(ass_list, left_set, right_set):
     if len(left_set) > 0 and len(right_set) > 0:
         ass_list.append([left_set, right_set])
@@ -138,6 +146,7 @@ def compute_association_list_helper(ass_list, left_set, right_set):
             compute_association_list_helper(ass_list, new_left_set, new_right_set)
 
 
+# compute the confidence of an association rule
 def compute_conf(association):
     left_count = 0
     right_count = 0
