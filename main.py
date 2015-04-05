@@ -27,7 +27,15 @@ def main(argv):
     read_file(csv_filename)
     categorize()
     compute_word_set()
-    apriori(min_supp, min_conf)
+    association_list = apriori(min_supp, min_conf)
+    display(association_list)
+
+
+# print association according to the requirement
+# each association is a list of set with length 2
+def display(association_list):
+    print association_list
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

@@ -81,7 +81,6 @@ def compute_frequency(subset):
 def apriori(min_supp, min_conf):
     high_freq_set_list = compute_high_freq_set_list(min_supp)
     high_conf_set_list = compute_high_conf_ass_list(high_freq_set_list, min_conf)
-    print high_conf_set_list
     return high_conf_set_list
 
 
