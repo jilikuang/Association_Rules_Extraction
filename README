@@ -23,9 +23,16 @@ d) How to run:
         * min_conf: the minimum/threshold of confidence
 
 
-
 e) Internal Design
 
+    The program is composed of 3 parts: Data classification, A-priori algorithm, Display
+
+        Data classification: Since most of data is numerical, we need to classify them into several classes so that
+        we can have enough support for a specific class.
+
+        A-priori algorithm: Compute the high frequent item_set
+
+        Display: Display the results according to the requirement
 
 
 f) Interesting Sample
