@@ -17,16 +17,16 @@ def main(argv):
     compute_word_set()
     frequent_items = compute_high_freq_set_list(min_supp)
     association_list = compute_high_conf_ass_list(frequent_items, min_conf)
-    display(frequent_items, association_list)
+    display(frequent_items, association_list, min_supp, min_conf)
 
 
 # print association according to the requirement
 # each association is a list of set with length 2
-def display(frequent_items, association_list):
-    print "==Frequent itemsets"
+def display(frequent_items, association_list, min_supp, min_conf):
+    print "== Frequent itemsets (min_sup= " + str(min_supp) + ")"
     print frequent_items
     print ""
-    print "==High-confidence association rules"
+    print "== High-confidence association rules (min_conf = " + str(min_conf) + ")"
     print association_list
 
 

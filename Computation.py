@@ -100,7 +100,7 @@ def compute_high_freq_set_list(min_supp):
         num = compute_frequency(set([word]))
         if num >= min_row_num:
             item_set.append(word)
-            high_freq_set_list_k.append([set([word]), 0.0])
+            high_freq_set_list_k.append([set([word]), float(num)/(len(data_rows)-1)])
     while len(high_freq_set_list_k) > 0:
         high_freq_set_list.extend(high_freq_set_list_k)
         high_freq_set_list_k_plus_1 = []
@@ -111,7 +111,7 @@ def compute_high_freq_set_list(min_supp):
                     new_s.add(item)
                     count = compute_frequency(new_s)
                     if count >= min_row_num:
-                        high_freq_set_list_k_plus_1.append([new_s, 0.0])
+                        high_freq_set_list_k_plus_1.append([new_s, float(count)/(len(data_rows)-1)])
         high_freq_set_list_k = high_freq_set_list_k_plus_1
     return high_freq_set_list
 
@@ -122,7 +122,10 @@ def compute_high_conf_ass_list(high_freq_set_list, min_conf):
     for item_set in high_freq_set_list:
         association_list = compute_association_list(item_set)
         for association in association_list:
-            if compute_conf(association) >= min_conf:
+            conf = compute_conf(association)
+            if conf >= min_conf:
+                association[2] = conf
+                association[3] = item_set[1]
                 high_conf_ass_list.append(association)
     return high_conf_ass_list
 
