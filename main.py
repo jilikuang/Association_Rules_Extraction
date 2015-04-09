@@ -1,6 +1,6 @@
 import sys
-import csv
 from Computation import *
+
 
 def main(argv):
     if argv[0] == 'test':
@@ -12,28 +12,21 @@ def main(argv):
         min_supp = float(argv[1])
         min_conf = float(argv[2])
 
-    """
-    fields = None
-    data = []
-
-    with open(csv_filename) as csvfile:
-        reader = csv.DictReader(csvfile)
-        fields = reader.fieldnames
-        for row in reader:
-            data.append(row)
-        csvfile.close()
-    """
-
     read_file(csv_filename)
     categorize()
     compute_word_set()
-    association_list = apriori(min_supp, min_conf)
-    display(association_list)
+    frequent_items = compute_high_freq_set_list(min_supp)
+    association_list = compute_high_conf_ass_list(frequent_items, min_conf)
+    display(frequent_items, association_list)
 
 
 # print association according to the requirement
 # each association is a list of set with length 2
-def display(association_list):
+def display(frequent_items, association_list):
+    print "==Frequent itemsets"
+    print frequent_items
+    print ""
+    print "==High-confidence association rules"
     print association_list
 
 

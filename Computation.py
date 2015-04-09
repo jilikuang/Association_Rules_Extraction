@@ -90,6 +90,7 @@ def apriori(min_supp, min_conf):
 
 
 # compute the frequent item_set list has larger support than min_support
+# each element in the list is a list of length 2, list[0] is the set itself, list[1] is the support
 def compute_high_freq_set_list(min_supp):
     min_row_num = (len(data_rows)-1)*min_supp
     high_freq_set_list = []
@@ -99,18 +100,18 @@ def compute_high_freq_set_list(min_supp):
         num = compute_frequency(set([word]))
         if num >= min_row_num:
             item_set.append(word)
-            high_freq_set_list_k.append(set([word]))
+            high_freq_set_list_k.append([set([word]), 0.0])
     while len(high_freq_set_list_k) > 0:
         high_freq_set_list.extend(high_freq_set_list_k)
         high_freq_set_list_k_plus_1 = []
-        for s in high_freq_set_list_k:
+        for set_list in high_freq_set_list_k:
             for item in item_set:
-                if item not in s:
-                    new_s = set(s)
+                if item not in set_list[0]:
+                    new_s = set(set_list[0])
                     new_s.add(item)
                     count = compute_frequency(new_s)
                     if count >= min_row_num:
-                        high_freq_set_list_k_plus_1.append(new_s)
+                        high_freq_set_list_k_plus_1.append([new_s, 0.0])
         high_freq_set_list_k = high_freq_set_list_k_plus_1
     return high_freq_set_list
 
@@ -126,17 +127,18 @@ def compute_high_conf_ass_list(high_freq_set_list, min_conf):
     return high_conf_ass_list
 
 
-# each association is a list of set of length 2, list[0] stands for the left set and list[1] is the right
+# each association is a list of set of length 4, list[0] stands for the left set and list[1] is the right
+# list[2] is the confidence and list[3] is the support
 def compute_association_list(item_set):
     association_list = []
-    compute_association_list_helper(association_list, set(), item_set)
+    compute_association_list_helper(association_list, set(), item_set[0])
     return association_list
 
 
 # compute all the possible association rules of an item_set
 def compute_association_list_helper(ass_list, left_set, right_set):
     if len(left_set) > 0 and len(right_set) > 0:
-        ass_list.append([left_set, right_set])
+        ass_list.append([left_set, right_set, 0.0, 0.0])
     if len(right_set) > 0:
         for item in right_set:
             new_right_set = set(right_set)
