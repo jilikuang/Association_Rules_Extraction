@@ -104,14 +104,16 @@ def compute_high_freq_set_list(min_supp):
     while len(high_freq_set_list_k) > 0:
         high_freq_set_list.extend(high_freq_set_list_k)
         high_freq_set_list_k_plus_1 = []
+        high_freq_set_set_k_plus_1 = ([])
         for set_list in high_freq_set_list_k:
             for item in item_set:
                 if item not in set_list[0]:
                     new_s = set(set_list[0])
                     new_s.add(item)
                     count = compute_frequency(new_s)
-                    if count >= min_row_num:
+                    if count >= min_row_num and new_s not in high_freq_set_set_k_plus_1:
                         high_freq_set_list_k_plus_1.append([new_s, float(count)/(len(data_rows)-1)])
+                        high_freq_set_set_k_plus_1.append(new_s)
         high_freq_set_list_k = high_freq_set_list_k_plus_1
     return high_freq_set_list
 
