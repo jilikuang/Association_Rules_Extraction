@@ -1,5 +1,6 @@
 import csv
 import math
+from analyze import *
 
 data_rows = []
 cat_data_rows_list = []
@@ -24,10 +25,8 @@ def categorize():
         index = 0
         for col in data_rows[1]:
             if index > col_with_num and col != ' n/a ':
-                col = col.replace(',', '')
-                col = col.replace('%', '')
-                mins.append(float(col))
-                maxs.append(float(col))
+                mins.append(analyze(col))
+                maxs.append(analyze(col))
             else:
                 mins.append(0)
                 maxs.append(0)
@@ -37,12 +36,10 @@ def categorize():
             for col in row:
                 if index > col_with_num:
                     if col != ' n/a ':
-                        col = col.replace(',', '')
-                        col = col.replace('%', '')
-                        if float(col) < mins[index]:
-                            mins[index] = float(col)
-                        if float(col) > maxs[index]:
-                            maxs[index] = float(col)
+                        if analyze(col) < mins[index]:
+                            mins[index] = analyze(col)
+                        if analyze(col) > maxs[index]:
+                            maxs[index] = analyze(col)
                 index += 1
         for row in data_rows[1:]:
             index = 0
@@ -54,9 +51,7 @@ def categorize():
                     if word == ' n/a ':
                         level = 'None'
                     else:
-                        word = word.replace(',', '')
-                        word = word.replace('%', '')
-                        level = math.floor((float(word)-col_min)/((col_max - col_min)/category_num))
+                        level = math.floor((analyze(word)-col_min)/((col_max - col_min)/category_num))
                     cat_data_row.append(data_rows[0][index] + '_' + str(level))
                 else:
                     cat_data_row.append(word)
