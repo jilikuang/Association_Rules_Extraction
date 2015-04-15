@@ -1,3 +1,4 @@
+import re
 import csv
 import math
 from analyze import *
@@ -5,7 +6,6 @@ from analyze import *
 data_rows = []
 cat_data_rows_list = []
 words_set = set()
-col_with_num = 3
 category_num = 5.0
 fields = []
 
@@ -20,6 +20,14 @@ def read_file(file_name):
             data_rows.append(row)
 
 
+def data_is_number(data, col_idx):
+    if type(analyze(data)) is str:
+        return False
+    if re.search("[Yy][Ee][Aa][Rr]", fields[col_idx]):
+        return False
+    return True
+
+
 # Since a lot cell contains float number, we need to categorize them and make the numbers more meaningful
 def categorize():
     if len(data_rows) > 0:
@@ -27,7 +35,7 @@ def categorize():
         maxs = []
         index = 0
         for col in data_rows[0]:
-            if index > col_with_num and col != ' n/a ':
+            if col != ' n/a ' and data_is_number(col, index):
                 mins.append(analyze(col))
                 maxs.append(analyze(col))
             else:
@@ -37,27 +45,26 @@ def categorize():
         for row in data_rows:
             index = 0
             for col in row:
-                if index > col_with_num:
-                    if col != ' n/a ':
-                        if analyze(col) < mins[index]:
-                            mins[index] = analyze(col)
-                        if analyze(col) > maxs[index]:
-                            maxs[index] = analyze(col)
+                if col != ' n/a ' and data_is_number(col, index):
+                    if analyze(col) < mins[index]:
+                        mins[index] = analyze(col)
+                    if analyze(col) > maxs[index]:
+                        maxs[index] = analyze(col)
                 index += 1
         for row in data_rows:
             index = 0
             cat_data_row = []
             for word in row:
-                if index > col_with_num:
-                    col_min = mins[index]
-                    col_max = maxs[index]
-                    if word == ' n/a ':
-                        level = 'None'
-                    else:
-                        level = math.floor((analyze(word)-col_min)/((col_max - col_min)/category_num))
-                    cat_data_row.append(fields[index] + '_' + str(level))
-                else:
+                if word == ' n/a ':
                     cat_data_row.append(word)
+                else:
+                    if data_is_number(word, index):
+                        col_min = mins[index]
+                        col_max = maxs[index]
+                        level = math.floor((analyze(word)-col_min)/((col_max - col_min)/category_num))
+                        cat_data_row.append(fields[index] + '_' + str(level))
+                    else:
+                        cat_data_row.append(word)
                 index += 1
             cat_data_row_set = set(cat_data_row)
             cat_data_rows_list.append(cat_data_row_set)
