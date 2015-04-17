@@ -25,7 +25,7 @@ def data_is_number(data, col_idx):
         return False
     if re.search("[Yy][Ee][Aa][Rr]", fields[col_idx]):
         return False
-    if re.search("ZIPCODE", fields[col_idx]):
+    if re.search("[Zz][Ii][Pp][Cc][Oo][Dd][Ee]", fields[col_idx]):
         return False
     return True
 
