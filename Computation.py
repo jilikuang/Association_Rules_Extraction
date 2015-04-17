@@ -12,7 +12,7 @@ fields = []
 
 # read the excel file into rows
 def read_file(file_name):
-    with open(file_name, 'rb') as csvfile:
+    with open(file_name, 'rbU') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         global fields
         fields = next(reader)
@@ -24,6 +24,8 @@ def data_is_number(data, col_idx):
     if type(analyze(data)) is str:
         return False
     if re.search("[Yy][Ee][Aa][Rr]", fields[col_idx]):
+        return False
+    if re.search("ZIPCODE", fields[col_idx]):
         return False
     return True
 
@@ -62,7 +64,8 @@ def categorize():
                         col_min = mins[index]
                         col_max = maxs[index]
                         level = math.floor((analyze(word)-col_min)/((col_max - col_min)/category_num))
-                        cat_data_row.append(fields[index] + '_' + str(level))
+                        range = str((col_max - col_min)/category_num*level) + "-" + str((col_max - col_min)/category_num*(level+1))
+                        cat_data_row.append(fields[index] + '_' + range)
                     else:
                         cat_data_row.append(word)
                 index += 1
