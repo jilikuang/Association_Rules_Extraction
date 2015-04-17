@@ -42,4 +42,21 @@ f) Interesting Sample
 
 e) Additional Information
 
-
+We further categorize the restaurants into six categories: Asian(A), European(E), North American(N), South American(S),
+Africa(AF), and Other(O). The restaurants are classified by the cuisine description following the rules below:
+    A:
+        Afghan, Asian, Bangladeshi, Chinese, Chinese/Cuban, Chinese/Japanese, Filipino, Indian, Indonesian, Iranian,
+        Japanese, Jewish/Kosher, Korean, Middle Eastern, Pakistani, Thai, Turkish, Vietnamese/Cambodian/Malasian
+    E:
+        Australian, Bagels/Pretzeis, Czech, Eastern European, English, French, German, Greek, Irish, Italian, Mediterranean,
+        Pizza, Pizza/Italian, Polish, Portuguese, Russian, Scandinavian, Spanish, Tapas
+    N:
+        American, Barbecue, Cajun, Californian, Caribbean, Chicken, Creole, Creole/Cajun, Hamburgers, Hawaiian, Hotdogs,
+        Hotdogs/Pretzels, Mexican, Polynesian, Sandwiches, Sandwiches/Salads/Mixed Buffet, Southwestern, Steak, Tex-Mex,
+    S:
+        Brazillian, Chilean, Latin, Peruvian
+    AF:
+        African, Armenian, Egyptian, Ethiopian, Moroccan
+    O:
+        Bakery, Bottled beverages, Cafe/Coffee/Tea, Continental, Delicatessen, Donuts, Fruit/Vegetables, Ice cream,
+        Juice, Nuts/Confectionary, Pancakes/Waffles, Salads, Seafood, Soul Food, Soups, Soups/Sandwiches, Vegetarian
