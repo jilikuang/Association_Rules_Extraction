@@ -39,7 +39,7 @@ def display(itemsets, rules, min_supp, min_conf):
 
 
 def output(itemsets, rules, min_supp, min_conf):
-    out = open('output.txt', 'w')
+    out = open('example-run.txt', 'w')
     out.write('==Frequent itemsets (min_sup=' + str(min_supp*100.0) + '%)\n')
     # print itemsets
     for s in itemsets:
