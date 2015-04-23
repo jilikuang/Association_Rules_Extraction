@@ -23,13 +23,12 @@ c) Description
     (b)
     In the original dataset, there are 498433 rows and 18 columns, which are CAMIS, DBA, BORO, BUILDING, STREET,
     ZIPCODE, PHONE, CUISINE DESCRIPTION, INSPECTION DATE, ACTION, VIOLATION CODE, VIOLATION DESCRIPTION, CRITICAL FLAG,
-    SCORE, GRADE, GRADE DATE, RECORD DATE, INSPECTION TYPE. We delete the following columns 0 1 3 4 5 6 9 11 15 16.
-    The reasons we delete those columns are listed as follows:
-        * CAMIS is simply the id number relative to DBA for the City-wide Agency Management Information System, which
-          is meaningless to our interpretation anyway.
-        * DBA (Doing Business As) is the name of the business entity, which is relatively diverse in the whole dataset.
-        * BUILDING, STREET, PHONE are highly related to each business entity individually so they are diverse as well.
-        * ZIPCODE is the number for each small region and they are diverse as well.
+    SCORE, GRADE, GRADE DATE, RECORD DATE, INSPECTION TYPE. We delete some columns for some reasons and we list them
+    as follows:
+	* For fields related to the detailed information of individual business entities, such as CAMIS, DBA, BUILDING,
+	  ZIPCODE, STREET, PHONE, we discard the columns for that the information in those fields is too diverse to
+	  have enough "support" to be considered and that we need to trim the dataset for faster processing since there
+	  are a lot of rows in the dataset.
         * In the ACTION field, a large majority of the content is "violations were cited in the following area(s)."
           so that the result is not representative.
         * The content VIOLATION DESCRIPTION is the details of the violation which are too diverse for meaningful results.
@@ -38,11 +37,14 @@ c) Description
 
     Furthermore, to make the data more applicable, we did the following steps:
         (1) Remove the row with empty column.
-        (2) Add the new column of inspection season according ot the exact inspection date.
+        (2) Add the new column of inspection season according to the exact inspection date.
         (3) Add the new column of cuisine region according to the exact cuisine type for bigger category: Asian(A),
             European(E), North American(N), South American(S), Africa(AF), and Other(O). The restaurants are classified
             by the cuisine description following the mapping mentioned in part e).
-        (4) Cap the score with 30. Some of the scores are too high such that they bias the general cases.
+        (4) Cap the score with 30. This modification is relative to how we extract the information regarding SCORE.
+	    Because we divide the scores evenly into 10 levels across the range of scores. Although most scores are
+	    under 30, Some of the scores are too high (e.g. 120) such that the range of the levels will be affected
+	    by those extreme values. As a result, we cap the score to obtain the levels for the general cases.
 
     We constructed csvporc.py to trim CSV file and add supplementary data in the CSV file. The usage of the python
     script is shown as follows:
@@ -59,7 +61,9 @@ c) Description
     (c) The reason why we think this INTEGRATED-DATASET is interesting is that:
         (1) The original dataset is one of the well-documented datasets in NYC Open Data.
         (2) There are sufficient amount of data in the dataset.
-        (3) Intuitively, there could be at least some relationship between GRADE, SCORE, and CRITICAL FLAG.
+        (3) Intuitively, there could be at least some relationship between locations, cuisine types, GRADE, SCORE,
+	    and CRITICAL FLAG.
+	(4) The result of the information extraction could be meaningful for our daily life.
 
 
 d) How to run:
