@@ -5,9 +5,9 @@ from Computation import *
 # entry of the program
 def main(argv):
     if argv[0] == 'test':
-        csv_filename = 'sample/Graduation_Outcomes_-_Citywide_-_Classes_of_2005-2011_-_Ethnicity.csv'
-        min_supp = 0.45
-        min_conf = 1.0
+        csv_filename = 'sample/DOHMH_New_York_City_Restaurant_Inspection_Results_reduced.csv'
+        min_supp = 0.5
+        min_conf = 0.8
     else:
         csv_filename = argv[0]
         min_supp = float(argv[1])
