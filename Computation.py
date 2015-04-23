@@ -20,6 +20,7 @@ def read_file(file_name):
             data_rows.append(row)
 
 
+# check if the value of a cell is number
 def data_is_number(data, col_idx):
     if type(analyze(data)) is str:
         return False
