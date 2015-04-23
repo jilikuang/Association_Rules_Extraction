@@ -4,6 +4,7 @@ import csv
 types = {}
 restaurant_type = {}
 
+# mapping from cuisine type to category
 types['Asian'] = [
     'Afghan', 'Asian', 'Bangladeshi', 'Chinese', 'Chinese/Cuban', 'Chinese/Japanese',
     'Filipino', 'Indian', 'Indonesian', 'Iranian', 'Japanese', 'Jewish/Kosher', 'Korean',
@@ -76,33 +77,8 @@ def process(incsv, mode, first_col):
                 for row in reader:
                     writer.writerow([first_col] + row)
 
-def csvreduce(incsv):
-    with open(incsv, 'rU') as csvin:
-        with open('output.csv', 'w') as csvout:
-            reader = csv.reader(csvin)
-            writer = csv.writer(csvout)
-            first = next(reader)
-            idx_score = first.index('SCORE')
-            idx_grade = first.index('GRADE')
-            idx_date = first.index('INSPECTION DATE')
-            col_num = len(first)
-            writer.writerow(first)
-            for row in reader:
-                #if len(filter(str.strip, row)) == col_num:
-                #if row[idx_score] != '' and row[idx_grade] != '':
-                if int(row[idx_score]) <= 30:
-                    i = row[idx_date].find('/')
-                    #print row[idx_date][0:i]
-                    if int(row[idx_date][0:i]) > 9:
-                        row[idx_date] = 'Q4'
-                    elif int(row[idx_date][0:i]) > 6:
-                        row[idx_date] = 'Q3'
-                    elif int(row[idx_date][0:i]) > 3:
-                        row[idx_date] = 'Q2'
-                    else:
-                        row[idx_date] = 'Q1'
-                    writer.writerow(row)
 
+#
 def csvtrim(incsv, cols=None):
     with open(incsv, 'rU') as csvin:
         with open('output.csv', 'w') as csvout:
@@ -124,6 +100,8 @@ def csvtrim(incsv, cols=None):
                     row = map(lambda s: s.decode('utf-8', 'ignore').encode('ascii', 'ignore'), row)
                     writer.writerow(row)
 
+
+#
 def csvmodify(incsv):
     with open(incsv, 'rU') as csvin:
         with open('output.csv', 'w') as csvout:
@@ -143,15 +121,12 @@ def csvmodify(incsv):
                     row[idx_score] = '30'
                 writer.writerow(row)
 
+
 if __name__ == '__main__':
     '''
     The usage of csvproc: <input CSV file> <operation> <arguments...>
     '''
-    if sys.argv[2] == 'new' or sys.argv[2] == 'append':
-        process(sys.argv[1], sys.argv[2], sys.argv[3])
-    elif sys.argv[2] == 'reduce':
-        csvreduce(sys.argv[2])
-    elif sys.argv[2] == 'trim':
+    if sys.argv[2] == 'trim':
         if len(sys.argv) < 3:
             csvtrim(sys.argv[1])
         else:

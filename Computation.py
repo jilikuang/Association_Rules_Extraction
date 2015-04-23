@@ -1,7 +1,6 @@
 import re
 import csv
 import math
-from analyze import *
 
 data_rows = []
 cat_data_rows_list = []
@@ -29,6 +28,23 @@ def data_is_number(data, col_idx):
     if re.search("[Zz][Ii][Pp][Cc][Oo][Dd][Ee]", fields[col_idx]):
         return False
     return True
+
+
+# Analyze the string and return the estimate type and value
+def analyze(string):
+    # Percentage
+    if string.endswith('%'):
+        num_str = string.rstrip('%').replace(',','')
+        return float(num_str) / 100
+    # Number
+    if string.replace(',', '').replace('.', '', 1).isdigit():
+        num_str = string.replace(',', '')
+        if num_str.rfind('.') < 0:
+            return int(num_str)
+        else:
+            return float(num_str)
+    # Default
+    return string
 
 
 # Since a lot cell contains float number, we need to categorize them and make the numbers more meaningful
