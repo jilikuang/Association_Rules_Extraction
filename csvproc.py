@@ -78,8 +78,15 @@ def process(incsv, mode, first_col):
                     writer.writerow([first_col] + row)
 
 
-#
 def csvtrim(incsv, cols=None):
+    '''
+    csvtrim(incsv, cols=None)
+    This function is used to trim the input csv file.
+    The following items will be trimmed:
+        1. The row that has any empty fields
+        2. The column with index specified in cols list
+    The result dataset will be output to a new csv file: output.csv
+    '''
     with open(incsv, 'rU') as csvin:
         with open('output.csv', 'w') as csvout:
             reader = csv.reader(csvin)
@@ -101,8 +108,13 @@ def csvtrim(incsv, cols=None):
                     writer.writerow(row)
 
 
-#
 def csvmodify(incsv):
+    '''
+    csvmodify(incsv)
+    This function is used to add/modify the content of the input csv file
+    The modifications are entirely customized for our dataset
+    The result dataset will be output to a new csv file: output.csv
+    '''
     with open(incsv, 'rU') as csvin:
         with open('output.csv', 'w') as csvout:
             reader = csv.reader(csvin)
