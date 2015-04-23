@@ -134,10 +134,13 @@ def csvmodify(incsv):
             fields.insert(idx_date+1, 'INSPECTION QUARTER')
             idx_cuisine = fields.index('CUISINE DESCRIPTION')
             fields.insert(idx_cuisine, 'CUISINE REGION')
+            idx_score = fields.index('SCORE')
             writer.writerow(fields)
             for row in reader:
                 row.insert(idx_date+1, date_to_quarter(row[idx_date]))
                 row.insert(idx_cuisine+1, get_restaurant_type(row[idx_cuisine]))
+                if int(row[idx_score]) > 30:
+                    row[idx_score] = '30'
                 writer.writerow(row)
 
 if __name__ == '__main__':
