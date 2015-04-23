@@ -109,7 +109,7 @@ def csvmodify(incsv):
             writer = csv.writer(csvout)
             fields = next(reader)
             idx_date = fields.index('INSPECTION DATE')
-            fields.insert(idx_date+1, 'INSPECTION QUARTER')
+            fields.insert(idx_date+1, 'INSPECTION SEASON')
             idx_cuisine = fields.index('CUISINE DESCRIPTION')
             fields.insert(idx_cuisine, 'CUISINE REGION')
             idx_score = fields.index('SCORE')
