@@ -86,3 +86,9 @@ e) Additional Information
     O:
         Bakery, Bottled beverages, Cafe/Coffee/Tea, Continental, Delicatessen, Donuts, Fruit/Vegetables, Ice cream,
         Juice, Nuts/Confectionary, Pancakes/Waffles, Salads, Seafood, Soul Food, Soups, Soups/Sandwiches, Vegetarian
+
+
+
+CAMIS, DBA, BORO, BUILDING, STREET, ZIPCODE, PHONE, CUISINE DESCRIPTION, INSPECTION DATE, ACTION, VIOLATION CODE, VIOLATION DESCRIPTION, CRITICAL FLAG, SCORE, GRADE, GRADE DATE, RECORD DATE, INSPECTION TYPE
+18 columns
+498433 rows
