@@ -1,0 +1,46 @@
+==Frequent itemsets (min_sup=20.0%)
+[Not Critical], 46.9028%
+[A], 70.9832%
+[QUEENS], 22.4268%
+[BROOKLYN], 23.8119%
+[Critical], 53.0972%
+[SCORE_9.0-12.0], 27.7162%
+[Cycle Inspection / Initial Inspection], 30.9890%
+[SCORE_12.0-15.0], 27.8039%
+[Winter], 26.0776%
+[MANHATTAN], 40.9629%
+[American], 24.0104%
+[Fall], 21.1896%
+[Cycle Inspection / Re-inspection], 59.6405%
+[Asian], 23.3626%
+[Summer], 22.5249%
+[Spring], 30.2079%
+[NorthAmerican], 41.7509%
+[A, Not Critical], 37.2661%
+[Not Critical, Cycle Inspection / Re-inspection], 25.0031%
+[Not Critical, NorthAmerican], 20.0821%
+[A, Critical], 33.7171%
+[A, SCORE_9.0-12.0], 27.3189%
+[A, Cycle Inspection / Initial Inspection], 30.9877%
+[A, SCORE_12.0-15.0], 26.6340%
+[A, MANHATTAN], 29.2866%
+[A, Cycle Inspection / Re-inspection], 34.3229%
+[A, Spring], 21.2163%
+[A, NorthAmerican], 30.6486%
+[Critical, MANHATTAN], 21.9671%
+[Critical, Cycle Inspection / Re-inspection], 34.6375%
+[Critical, NorthAmerican], 21.6688%
+[MANHATTAN, Cycle Inspection / Re-inspection], 24.6396%
+[American, NorthAmerican], 24.0104%
+[Cycle Inspection / Re-inspection, NorthAmerican], 24.5234%
+
+==High-confidence association rules (min_conf=65.0%)
+[Not Critical] => [A], (Conf: 79.4539%, Supp: 37.2661%)
+[SCORE_9.0-12.0] => [A], (Conf: 98.5664%, Supp: 27.3189%)
+[Cycle Inspection / Initial Inspection] => [A], (Conf: 99.9956%, Supp: 30.9877%)
+[SCORE_12.0-15.0] => [A], (Conf: 95.7923%, Supp: 26.6340%)
+[MANHATTAN] => [A], (Conf: 71.4954%, Supp: 29.2866%)
+[Spring] => [A], (Conf: 70.2342%, Supp: 21.2163%)
+[NorthAmerican] => [A], (Conf: 73.4084%, Supp: 30.6486%)
+[Critical] => [Cycle Inspection / Re-inspection], (Conf: 65.2341%, Supp: 34.6375%)
+[American] => [NorthAmerican], (Conf: 100.0000%, Supp: 24.0104%)

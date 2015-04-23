@@ -63,9 +63,9 @@ e) Internal Design
 
 f) Interesting Sample
 
-    If we run the following command with min_sup = 0.25 and min_conf = 0.65,
+    If we run the following command with min_sup = 0.2 and min_conf = 0.65,
 
-    python main.py 'sample/DOHMH_New_York_City_Restaurant_Inspection_Results_reduced.csv' 0.25 0.65
+    python main.py INTEGRATED-DATASET.csv 0.2 0.65
 
     The interesting point is that ...
 

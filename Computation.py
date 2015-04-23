@@ -6,7 +6,7 @@ from analyze import *
 data_rows = []
 cat_data_rows_list = []
 words_set = set()
-category_num = 5.0
+category_num = 10.0
 fields = []
 
 

@@ -5,8 +5,8 @@ from Computation import *
 # entry of the program
 def main(argv):
     if argv[0] == 'test':
-        csv_filename = 'sample/DOHMH_New_York_City_Restaurant_Inspection_Results_reduced_final2.csv'
-        min_supp = 0.25
+        csv_filename = 'INTEGRATED-DATASET.csv'
+        min_supp = 0.2
         min_conf = 0.65
     else:
         csv_filename = argv[0]
