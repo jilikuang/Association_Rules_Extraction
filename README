@@ -92,21 +92,21 @@ e) Internal Design
 
 f) Interesting Sample
 
-    If we run the following command with min_sup = 0.2 and min_conf = 0.65,
+    We run the following command with min_sup = 0.2 and min_conf = 0.65,
 
     python main.py INTEGRATED-DATASET.csv 0.2 0.65
 
-    Here are the association rules that has enough support and confidence. If we analyze them one by one, we may find
+    Here are the association rules that has enough support and confidence. We analyze them one by one, we find
     that all of them make perfect sense in the real life.
 
     (1) [Not Critical] => [A], (Conf: 79.4539%, Supp: 37.2661%)
-        If the feedback from customers are not critical, it's likely that they would give the restaurant an A.
+        If the inspection feedback is not critical, it's likely that they would give the restaurant an A.
 
     (2) [SCORE_9.0-12.0] => [A], (Conf: 98.5664%, Supp: 27.3189%)
         If the score is between 9-12 which is high enough, it's likely that the restaurant will get an A.
 
     (3) [Cycle Inspection / Initial Inspection] => [A], (Conf: 99.9956%, Supp: 30.9877%)
-        If the restaurant is under cycle inspection, they will pay more attention to the customers and hence get an A.
+        If the restaurant is under cycle inspection, they may pay more attention and hence get an A.
 
     (4) [SCORE_12.0-15.0] => [A], (Conf: 95.7923%, Supp: 26.6340%)
         If the score is between 12-15 which is high enough, it's likely that the restaurant will get an A.
@@ -115,19 +115,25 @@ f) Interesting Sample
         Most restaurants in Manhattan are good on average and hence are worthy getting an A.
 
     (6) [Spring] => [A], (Conf: 70.2342%, Supp: 21.2163%)
-        In spring, when there are more food resources and the mood of customers are better, they would give more A.
+        In spring, the temperature may be better for food conservation, and the restaurants could get more A.
 
     (7) [NorthAmerican] => [A], (Conf: 73.4084%, Supp: 30.6486%)
-        Here in US, North American food are more popular, of course. Therefore, they are more likely to get an A.
+        This shows that most north American restaurants are clean enough to receive an A.
 
     (8) [Critical] => [Cycle Inspection / Re-inspection], (Conf: 65.2341%, Supp: 34.6375%)
-        If the feedback from the customer is critical, the restaurant are more likely to be under cycle inspection.
+        If the inspection feedback is critical, the restaurant are more likely to be under cycle inspection.
 
     (9) [American] => [NorthAmerican], (Conf: 100.0000%, Supp: 24.0104%)
         There are more American cuisine restaurant in NYC.
 
 
 e) Additional Information
+
+    The mapping form inspection date to seasons:
+    Mar - May: Spring
+    Jun - Aug: Summer
+    Sep - Nov: Fall
+    Dec - Feb: Winter
 
     The mapping from cuisine type to its category is listed below:
     Asian:
