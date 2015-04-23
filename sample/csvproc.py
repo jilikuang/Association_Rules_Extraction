@@ -39,14 +39,14 @@ types['Other'] = [
 # convert exact date to quarter
 def date_to_quarter(date):
     i = date.find('/')
-    if int(date[0:i]) > 9:
-        return 'Q4'
-    elif int(date[0:i]) > 6:
-        return 'Q3'
-    elif int(date[0:i]) > 3:
-        return 'Q2'
+    if 6 > int(date[0:i]) > 2:
+        return 'Spring'
+    elif 9 > int(date[0:i]) >= 6:
+        return 'Summer'
+    elif 12 > int(date[0:i]) >= 9:
+        return 'Fall'
     else:
-        return 'Q1'
+        return 'Winter'
 
 
 # convert exact cuisine type to a category
