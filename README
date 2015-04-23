@@ -8,17 +8,16 @@ a) Group members
 
 b) File list
     main.py
-    analyze.py
-    Computation.py
+    computation.py
     csvproc.py
-    DOHMH_New_York_City_Restaurant_Inspection_Results.csv
-    DOHMH_New_York_City_Restaurant_Inspection_Results_reduced.csv
+    INTEGRATED-DATASET.csv
     example-run.txt
     README
 
 
 c) Description
-    (a) The original version of the dataset we use is "DOHMH New York City Restaurant Inspection Result" from NYC
+    (a)
+    The original version of the dataset we use is "DOHMH New York City Restaurant Inspection Result" from NYC
     Open Data (https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/xx67-kt59?).
 
     (b)
@@ -28,11 +27,23 @@ c) Description
 
     To make the data more applicable, we did the following steps:
         (1) Remove the row with empty column
-        (2) convert the exact date to Quarter
-        (3) Convert the exact cuisine type to bigger category: Asian(A), European(E), North American(N),
-        South American(S), Africa(AF), and Other(O). The restaurants are classified by the cuisine description
-        following the mapping mentioned in part e).
-        (4) ignore the score larger than 30
+        (2) Add the new column of inspection season according ot the exact inspection date
+        (3) Add the new column of cuisine region according to the exact cuisine type for bigger category: Asian(A),
+            European(E), North American(N), South American(S), Africa(AF), and Other(O). The restaurants are classified
+            by the cuisine description following the mapping mentioned in part e).
+        (4) Cap the score with 30
+
+    We constructed csvporc.py to trim CSV file and add supplementary data in the CSV file. The usage of the python
+    script is shown as follows:
+
+        python csvproc.py <input CSV file> <trim|modify> <arguments for trim>
+        where:
+            * input CSV file: the CSV file to be processed
+            * trim|modify: trim the target CSV file | add/modify the target CSV file
+            * arguments for trim: the indexes of columns to be removed (could be left empty)
+
+    The input CSV file to csvproc.py will not be modified, but an output.csv will be generated for the desired
+    operation.
 
     (c) The reason why this INTEGRATED-DATASET is interesting is that ...
 
