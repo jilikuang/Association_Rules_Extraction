@@ -1,7 +1,61 @@
 import sys
 import csv
-import helper
 
+types = {}
+restaurant_type = {}
+
+types['Asian'] = [
+    'Afghan', 'Asian', 'Bangladeshi', 'Chinese', 'Chinese/Cuban', 'Chinese/Japanese',
+    'Filipino', 'Indian', 'Indonesian', 'Iranian', 'Japanese', 'Jewish/Kosher', 'Korean',
+    'Middle Eastern', 'Pakistani', 'Thai', 'Turkish', 'Vietnamese/Cambodian/Malaysia'
+]
+types['European'] = [
+    'Australian', 'Bagels/Pretzeis', 'Czech', 'Eastern European', 'English', 'French',
+    'German', 'Greek', 'Irish', 'Italian', 'Mediterranean', 'Pizza', 'Pizza/Italian', 'Polish',
+    'Portuguese', 'Russian', 'Scandinavian', 'Spanish', 'Tapas', 'Bagels/Pretzels'
+]
+types['NorthAmerican'] = [
+    'American', 'Barbecue', 'Cajun', 'Californian', 'Caribbean', 'Chicken', 'Creole', 'Creole/Cajun',
+    'Hamburgers', 'Hawaiian', 'Hotdogs', 'Hotdogs/Pretzels', 'Mexican', 'Polynesian', 'Sandwiches',
+    'Sandwiches/Salads/Mixed Buffet', 'Southwestern', 'Steak', 'Tex-Mex',
+    'Latin (Cuban, Dominican, Puerto Rican, South & Central American)'
+]
+types['SouthAmerican'] = [
+    'Brazilian', 'Chilean', 'Latin', 'Peruvian'
+]
+types['Africa'] = [
+    'African', 'Armenian', 'Egyptian', 'Ethiopian', 'Moroccan'
+]
+types['Other'] = [
+    'Bakery', 'Bottled beverages', 'Cafe/Coffee/Tea', 'Continental', 'Delicatessen', 'Donuts',
+    'Fruit/Vegetables', 'Ice cream', 'Juice', 'Nuts/Confectionary', 'Pancakes/Waffles', 'Salads',
+    'Seafood', 'Soul Food', 'Soups', 'Soups/Sandwiches', 'Vegetarian', 'Ice Cream, Gelato, Yogurt, Ices',
+    'Caf_/Coffee/Tea', 'Caf/Coffee/Tea', 'Not Listed/Not Applicable', 'Other',
+    'Bottled beverages, including water, sodas, juices, etc.', 'Juice, Smoothies, Fruit Salads',
+    'Soups & Sandwiches', 'Fruits/Vegetables'
+]
+
+
+# convert exact date to quarter
+def date_to_quarter(date):
+    i = date.find('/')
+    if int(date[0:i]) > 9:
+        return 'Q4'
+    elif int(date[0:i]) > 6:
+        return 'Q3'
+    elif int(date[0:i]) > 3:
+        return 'Q2'
+    else:
+        return 'Q1'
+
+
+# convert exact cuisine type to a category
+def get_restaurant_type(cuisine):
+    if not restaurant_type:
+        for key in types.keys():
+            for item in types[key]:
+                restaurant_type[item] = key
+    return restaurant_type[cuisine]
 def process(incsv, mode, first_col):
     with open(incsv, 'r') as csvin:
         if mode == 'append':
@@ -49,25 +103,25 @@ def csvreduce(incsv):
                         row[idx_date] = 'Q1'
                     writer.writerow(row)
 
-def csvtrim(incsv, cols):
+def csvtrim(incsv, cols=None):
     with open(incsv, 'rU') as csvin:
         with open('output.csv', 'w') as csvout:
             reader = csv.reader(csvin)
             writer = csv.writer(csvout)
             fields = next(reader)
             col_num = len(fields)
-            to_drop = sorted(map(int, cols), reverse=True)
-            for i in to_drop:
-                del fields[i]
+            if cols is not None:
+                to_drop = sorted(map(int, cols), reverse=True)
+                for i in to_drop:
+                    del fields[i]
             writer.writerow(fields)
             for row in reader:
                 if len(filter(str.strip, row)) == col_num:
-                    for i in to_drop:
-                        del row[i]
+                    if cols is not None:
+                        for i in to_drop:
+                            del row[i]
                     row = map(str.strip, row)
-                    for r in row:
-                        r.encode('ascii', 'ignore')
-                    row = map(lambda s: s.encode('ascii', 'ignore'), row)
+                    row = map(lambda s: s.decode('utf-8', 'ignore').encode('ascii', 'ignore'), row)
                     writer.writerow(row)
 
 def csvmodify(incsv):
@@ -82,8 +136,8 @@ def csvmodify(incsv):
             fields.insert(idx_cuisine, 'CUISINE REGION')
             writer.writerow(fields)
             for row in reader:
-                row.insert(idx_date+1, helper.date_to_quarter(row[idx_date]))
-                row.insert(idx_cuisine+1, helper.get_restaurant_type(row[idx_cuisine]))
+                row.insert(idx_date+1, date_to_quarter(row[idx_date]))
+                row.insert(idx_cuisine+1, get_restaurant_type(row[idx_cuisine]))
                 writer.writerow(row)
 
 if __name__ == '__main__':
@@ -95,6 +149,9 @@ if __name__ == '__main__':
     elif sys.argv[2] == 'reduce':
         csvreduce(sys.argv[2])
     elif sys.argv[2] == 'trim':
-        csvtrim(sys.argv[1], sys.argv[3:])
+        if len(sys.argv) < 3:
+            csvtrim(sys.argv[1])
+        else:
+            csvtrim(sys.argv[1], sys.argv[3:])
     elif sys.argv[2] == 'modify':
         csvmodify(sys.argv[1])
