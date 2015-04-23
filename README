@@ -59,17 +59,17 @@ d) How to run:
 
 e) Internal Design
 
-    The program is composed of 3 parts: Data classification, A-priori algorithm, Display
+    The program is composed of 3 parts: Data classification, a-priori algorithm, Display
 
         Data classification: Since part of data is numerical, we need to classify them into several classes so that
-        we can have enough support for a specific class. And it can produce more meaningful result.
+        we can have enough support for a specific class. In this way, we can produce more meaningful result.
 
-        The classical version of a-priori algorithm is as follow:
+        The second part is the implementation of classical version of a-priori algorithm.
         1. Compute the high frequent item sets
         2. Generate all possible association rules based on the frequent item sets
-        3. Get all based on the min-support and min-confidence
+        3. Get all association rules that are higher than on the min-support and min-confidence
 
-        Display: Display the results according to the requirement in the instruction
+        Display and : Display the results according to the requirement in the instruction
 
 
 f) Interesting Sample
@@ -78,7 +78,35 @@ f) Interesting Sample
 
     python main.py INTEGRATED-DATASET.csv 0.2 0.65
 
-    The interesting point is that ...
+    Here are the association rules that has enough support and confidence. If we analyze them one by one, we may find
+    that all of them make perfect sense in the real life.
+
+    (1) [Not Critical] => [A], (Conf: 79.4539%, Supp: 37.2661%)
+        If the feedback from customers are not critical, it's likely that they would give the restaurant an A.
+
+    (2) [SCORE_9.0-12.0] => [A], (Conf: 98.5664%, Supp: 27.3189%)
+        If the score is between 9-12 which is high enough, it's likely that the restaurant will get an A.
+
+    (3) [Cycle Inspection / Initial Inspection] => [A], (Conf: 99.9956%, Supp: 30.9877%)
+        If the restaurant is under cycle inspection, they will pay more attention to the customers and hence get an A.
+
+    (4) [SCORE_12.0-15.0] => [A], (Conf: 95.7923%, Supp: 26.6340%)
+        If the score is between 12-15 which is high enough, it's likely that the restaurant will get an A.
+
+    (5) [MANHATTAN] => [A], (Conf: 71.4954%, Supp: 29.2866%)
+        Most restaurants in Manhattan are good on average and hence are worthy getting an A.
+
+    (6) [Spring] => [A], (Conf: 70.2342%, Supp: 21.2163%)
+        In spring, when there are more food resources and the mood of customers are better, they would give more A.
+
+    (7) [NorthAmerican] => [A], (Conf: 73.4084%, Supp: 30.6486%)
+        Here in US, North American food are more popular, of course. Therefore, they are more likely to get an A.
+
+    (8) [Critical] => [Cycle Inspection / Re-inspection], (Conf: 65.2341%, Supp: 34.6375%)
+        If the feedback from the customer is critical, the restaurant are more likely to be under cycle inspection.
+
+    (9) [American] => [NorthAmerican], (Conf: 100.0000%, Supp: 24.0104%)
+        There are more American cuisine restaurant in NYC.
 
 
 e) Additional Information
