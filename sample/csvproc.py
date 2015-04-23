@@ -1,7 +1,7 @@
 import sys
 import csv
 
-def process(mode, incsv, first_col):
+def process(incsv, mode, first_col):
     with open(incsv, 'r') as csvin:
         if mode == 'append':
             with open('output.csv', 'a') as csvout:
@@ -48,8 +48,27 @@ def csvreduce(incsv):
                         row[idx_date] = 'Q1'
                     writer.writerow(row)
 
+def csvtrim(incsv, cols):
+    with open(incsv, 'rU') as csvin:
+        with open('output.csv', 'w') as csvout:
+            reader = csv.reader(csvin)
+            writer = csv.writer(csvout)
+            fields = next(reader)
+            col_num = len(fields)
+            to_drop = sorted(map(lambda x: int(x), cols), reverse=True)
+            for i in to_drop:
+                del fields[i]
+            writer.writerow(fields)
+            for row in reader:
+                if len(filter(str.strip, row)) == col_num:
+                    for i in to_drop:
+                        del row[i]
+                    writer.writerow(row)
+
 if __name__ == '__main__':
-    if sys.argv[1] == 'new' or sys.argv[1] == 'append':
+    if sys.argv[2] == 'new' or sys.argv[2] == 'append':
         process(sys.argv[1], sys.argv[2], sys.argv[3])
-    elif sys.argv[1] == 'reduce':
+    elif sys.argv[2] == 'reduce':
         csvreduce(sys.argv[2])
+    elif sys.argv[2] == 'trim':
+        csvtrim(sys.argv[1], sys.argv[3:])
