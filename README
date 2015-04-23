@@ -45,6 +45,10 @@ f) Interesting Sample
 
 e) Additional Information
 
+The original version of the dataset we use is "DOHMH New York City Restaurant Inspection Result" from NYC Open Data
+(https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/xx67-kt59?). To make the data
+more applicable, we trim the data 
+
 We further categorize the restaurants into six categories: Asian(A), European(E), North American(N), South American(S),
 Africa(AF), and Other(O). The restaurants are classified by the cuisine description following the rules below:
     A:
