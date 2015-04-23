@@ -9,13 +9,13 @@ types['Asian'] = [
 types['European'] = [
     'Australian', 'Bagels/Pretzeis', 'Czech', 'Eastern European', 'English', 'French',
     'German', 'Greek', 'Irish', 'Italian', 'Mediterranean', 'Pizza', 'Pizza/Italian', 'Polish',
-    'Portuguese', 'Russian', 'Scandinavian', 'Spanish', 'Tapas'
+    'Portuguese', 'Russian', 'Scandinavian', 'Spanish', 'Tapas', 'Bagels/Pretzels'
 ]
 types['NorthAmerican'] = [
     'American', 'Barbecue', 'Cajun', 'Californian', 'Caribbean', 'Chicken', 'Creole', 'Creole/Cajun',
     'Hamburgers', 'Hawaiian', 'Hotdogs', 'Hotdogs/Pretzels', 'Mexican', 'Polynesian', 'Sandwiches',
-    'Sandwiches/Salads/Mixed Buffet', 'Southwestern', 'Steak', 'Tex-Mex'
-
+    'Sandwiches/Salads/Mixed Buffet', 'Southwestern', 'Steak', 'Tex-Mex',
+    'Latin (Cuban, Dominican, Puerto Rican, South & Central American)'
 ]
 types['SouthAmerican'] = [
     'Brazillian', 'Chilean', 'Latin', 'Peruvian'
@@ -26,7 +26,7 @@ types['Africa'] = [
 types['Other'] = [
     'Bakery', 'Bottled beverages', 'Cafe/Coffee/Tea', 'Continental', 'Delicatessen', 'Donuts',
     'Fruit/Vegetables', 'Ice cream', 'Juice', 'Nuts/Confectionary', 'Pancakes/Waffles', 'Salads',
-    'Seafood', 'Soul Food', 'Soups', 'Soups/Sandwiches', 'Vegetarian'
+    'Seafood', 'Soul Food', 'Soups', 'Soups/Sandwiches', 'Vegetarian', 'Ice Cream, Gelato, Yogurt, Ices'
 ]
 
 
@@ -46,7 +46,7 @@ def date_to_quarter(date):
 # convert exact cuisine type to a category
 def get_restaurant_type(cuisine):
     if not restaurant_type:
-        for key in type.keys():
-            for item in type[key]:
+        for key in types.keys():
+            for item in types[key]:
                 restaurant_type[item] = key
     return restaurant_type[cuisine]
